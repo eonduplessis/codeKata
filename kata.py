@@ -1,23 +1,32 @@
 import re
 
+def isEmpty(string):
+    return len(string) > 0
+
+def getDelimiter(string):
+    if string.startswith('//'):
+        delimiters = re.findall(r'(?<=\/\/)(.*?)\n', string)
+
+        return ('|'.join(delimiters), string[string.index('\n') + 1:])
+    else:
+        return ('\n|,', string)
+
 def add(numbers):
     """
     Accept a string of delimited values and add them together.
     """
 
-    #Check if the string contains values. If empty, return 0 else return sum.
-    if len(numbers) > 0:
+    values = getDelimiter(numbers)
 
-        stringList = re.split('\n|,', numbers) #numbers.split(',')
-        
-        mapObject = map(int, stringList)
+    delimiters = values[0]
+    numbers = values[1]
 
-        integerList = list(mapObject)
+    stringList = re.split(delimiters, numbers)
 
-        return sum(integerList)
+    mapObject = map(int, filter(isEmpty, stringList))
 
-    else:
-        return 0
+    integerList = list(mapObject)
 
-val = add('1,2,3')
-print(val)
+    return sum(integerList)
+
+
