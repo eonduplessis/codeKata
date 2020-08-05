@@ -1,3 +1,5 @@
+import re
+
 def add(numbers):
     """
     Accept a string of delimited values and add them together.
@@ -6,7 +8,7 @@ def add(numbers):
     #Check if the string contains values. If empty, return 0 else return sum.
     if len(numbers) > 0:
 
-        stringList = numbers.split(',')
+        stringList = re.split('\n|,', numbers) #numbers.split(',')
         
         mapObject = map(int, stringList)
 
