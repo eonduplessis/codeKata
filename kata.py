@@ -3,6 +3,9 @@ import re
 def isEmpty(string):
     return len(string) > 0
 
+def isNegative(number):
+    return number < 0
+
 def getDelimiter(string):
     if string.startswith('//'):
         delimiters = re.findall(r'(?<=\/\/)(.*?)\n', string)
@@ -27,6 +30,10 @@ def add(numbers):
 
     integerList = list(mapObject)
 
-    return sum(integerList)
+    negativeNumbers = list(filter(isNegative, integerList))
 
+    if len(negativeNumbers) > 0:
+        raise Exception('Negatives not allowed: %s' % negativeNumbers)
+
+    return sum(integerList)
 
